@@ -4,9 +4,12 @@ import java.security.PublicKey;
 
 /**
  * 例子：  加加减减    0 -1 1  可以用 生产者和消费者。
+ *
+ *
  */
 public class ProdcucerandConsumer {
     public static void main(String[] args) {
+
         Message message = new Message();
         new Thread(new Producer(message)).start();
         ;
@@ -18,6 +21,7 @@ public class ProdcucerandConsumer {
 
 class Producer implements Runnable {
     private Message msg;
+
 
     public Producer(Message message) {
         this.msg = message;
