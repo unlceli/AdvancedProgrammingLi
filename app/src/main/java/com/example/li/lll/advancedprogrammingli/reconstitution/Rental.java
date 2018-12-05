@@ -35,7 +35,7 @@ public class Rental {
 
         switch (getMovie().getPriceCode()) {
             case Movie.REGULAR:
-
+            movie.getTitle();
                 break;
 
             case Movie.CHILDRENS:
