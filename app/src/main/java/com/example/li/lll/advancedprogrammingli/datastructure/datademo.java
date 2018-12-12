@@ -50,4 +50,115 @@ public class datademo {
         if(end<high) quickSort(a,end+1,high);//右边序列。从关键值索引+1到最后一个
     }
 
+
+
+    /**合并排序
+     * 一直在分割
+     * 然后 两部分 一直分割  然后一直递归*/
+    public static int[] mesh(int[] array){
+        int length = array.length - 1 ;
+        int[] mysort = mysort(array, 0, length);
+        return mysort;
+
+    }
+
+    private static int[] mysort(int[] array, int low, int length) {
+        int mid = (length + low)/2;
+        if (low < length){
+            mysort(array,low,mid);
+            mysort(array,mid + 1,length);
+            merge(array,low,mid,length);
+        }
+        return array;
+
+    }
+
+    private static void merge(int[] array, int low, int mid, int length) {
+        int[] temp = new int[length - low + 1];
+
+        int i = low;
+        int j = mid + 1;
+        int n = 0;
+        while (i <= mid && j <= length){
+            if (array[i] > array[j]){
+                temp[n++] = array[j++];
+            }else {
+                temp[n++] = array[i++];
+            }
+        }
+
+        while (i <= mid){
+            temp[n++] = array[i++];
+        }
+
+
+        while (j <= length){
+            temp[n++] = array[j++];
+        }
+
+
+        //合并的逻辑  赋值给array
+
+        for (int k = 0; k < temp.length; k++) {
+            array[low + k] = temp[k];
+        }
+
+
+    }
+
+    /**
+     * 堆算法  大顶堆 小顶堆
+     * 每次取堆定 然后放入数组 重构堆   再取再重构
+     * */
+    public static int[] heap(int[] array){
+        int length = array.length - 1;
+        for (int i = 0; i < length; i++) {
+            buildHeap(array,length - i);
+            swapHeap(array,0,length - i);
+        }
+
+
+        return array;
+    }
+
+    private static void swapHeap(int[] array, int a, int b) {
+        int temp = array[b];
+        array[b] = array[a];
+        array[a] = temp;
+
+    }
+
+    private static void buildHeap(int[] array, int lastIndex) {
+        //获取左孩子和右孩子
+        int pos = (lastIndex - 1)/2;
+        for (int i = pos; i >= 0; i--) {
+            int childL = i * 2 + 1;
+            int childR = i * 2 + 2;
+            int maxIndex = childL;
+            if (childR <= lastIndex){
+                //有右孩子
+                if (array[childL] < array[childR]){
+                    maxIndex ++;
+                }
+            }else if (childL <= lastIndex){
+                //有左孩子
+            }
+
+            if (array[i] < array[maxIndex]){
+                swrap(array,i,maxIndex);
+            }
+        }
+
+
+    }
+
+    private static void swrap(int[] array, int low, int length) {
+        int temp = array[length];
+        array[length] = array[low];
+        array[low] = temp;
+        //return array;
+    }
+
+
+
 }
